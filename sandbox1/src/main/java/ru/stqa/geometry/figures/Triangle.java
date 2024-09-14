@@ -2,20 +2,19 @@ package ru.stqa.geometry.figures;
 
 public record Triangle(double a, double b, double c) {
 
-    //вывод на печать площади, если трегольник существует и сообщения, что треугольник не существует (вынести в отдельный класс)
-    public static void printTriangleArea(Triangle t) {
-        String text = String.format("Площадь треугольника со сторонами %f, %f, %f = ", t.a, t.b, t.c) + t.triangleArea();
-
-        if (t.isTriangle()) {
-            System.out.println(text);
-        } else {
-            System.out.printf("Треугольник со сторонами %f, %f, %f  не существует%n", t.a, t.b, t.c);
+    public Triangle {
+        if (a < 0 || b < 0 || c < 0) {
+            throw new IllegalArgumentException("Triangle side should be non-negative");
+        }
+        if (a + b < c || a + c < b || b + c < a) {
+            throw new IllegalArgumentException("Two triangle sides sum should always be more then third");
         }
     }
 
-    //проверка существования треугольника, длины>0, сумма длин двух сторон > 3
-    public boolean isTriangle() {
-        return (this.a > 0 && this.b > 0 && this.c > 0 && (this.a + this.b) > this.c && (this.a + this.c) > this.b && (this.c + this.b) > this.a);
+    //Метод вывода на печать площади - вынести в отдельный класс Print
+    public static void printTriangleArea(Triangle t) {
+        String text = String.format("Площадь треугольника со сторонами %f, %f, %f = ", t.a, t.b, t.c) + t.triangleArea();
+        System.out.println(text);
     }
 
     /* Метод расчета площади треугольника по формуле Герона
