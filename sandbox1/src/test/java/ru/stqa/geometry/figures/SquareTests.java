@@ -18,13 +18,35 @@ public class SquareTests {
     void canCalculatePerimeter() {
         Assertions.assertEquals(20.0, new Square(5).perimeter());
     }
+
     @Test
-    void cannotCreateSquareWithNegativeSide(){
+    void cannotCreateSquareWithNegativeSide() {
         try {
             new Square(-5);
             Assertions.fail();
-        } catch (IllegalArgumentException exception){
+        } catch (IllegalArgumentException exception) {
             // OK
         }
+    }
+
+    @Test
+    void testEquality() {
+        var s1 = new Square(5);
+        var s2 = new Square(5);
+        Assertions.assertEquals(s1, s2);
+    }
+
+    @Test
+    void testNonEquality() {
+        var s1 = new Square(5);
+        var s2 = new Square(4);
+        Assertions.assertNotEquals(s1, s2);
+    }
+
+    @Test
+    void testFail() {
+        var s1 = new Square(5);
+        var s2 = new Square(5);
+        Assertions.assertTrue(s1.equals(s2));
     }
 }

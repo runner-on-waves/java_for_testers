@@ -1,8 +1,10 @@
 package ru.stqa.geometry.figures;
 
+import java.util.Objects;
+
 public record Square(double side) {
     public Square {
-        if (side< 0){
+        if (side < 0) {
             throw new IllegalArgumentException("Square side should be non-negative");
         }
     }
@@ -21,4 +23,19 @@ public record Square(double side) {
     public double perimeter() {
         return this.side * 4;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (Square) obj;
+        return Double.doubleToLongBits(this.side) == Double.doubleToLongBits(that.side);
+    }
+
+    @Override
+    public String toString() {
+        return "Square[" +
+                "side=" + side + ']';
+    }
+
 }
