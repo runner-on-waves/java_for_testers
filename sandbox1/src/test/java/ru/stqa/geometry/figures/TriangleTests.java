@@ -6,6 +6,48 @@ import org.junit.jupiter.api.Test;
 import static java.lang.Double.NaN;
 
 public class TriangleTests {
+    //Блок тестов на проверку равенства треугольников
+    @Test
+    void testEquality1() {
+        var t1 = new Triangle(5.0, 4.0, 8.0);
+        var t2 = new Triangle(5.0, 4.0, 8.0);
+        Assertions.assertEquals(t1, t2);
+    }
+
+    @Test
+    void testEquality2() {
+        var t1 = new Triangle(5.0, 4.0, 8.0);
+        var t2 = new Triangle(5.0, 8.0, 4.0);
+        Assertions.assertEquals(t1, t2);
+    }
+
+    @Test
+    void testEquality3() {
+        var t1 = new Triangle(5.0, 4.0, 8.0);
+        var t2 = new Triangle(4.0, 8.0, 5.0);
+        Assertions.assertEquals(t1, t2);
+    }
+
+    @Test
+    void testEquality4() {
+        var t1 = new Triangle(5.0, 4.0, 8.0);
+        var t2 = new Triangle(4.0, 5.0, 8.0);
+        Assertions.assertEquals(t1, t2);
+    }
+
+    @Test
+    void testEquality5() {
+        var t1 = new Triangle(5.0, 4.0, 8.0);
+        var t2 = new Triangle(8.0, 5.0, 4.0);
+        Assertions.assertEquals(t1, t2);
+    }
+
+    @Test
+    void testEquality6() {
+        var t1 = new Triangle(5.0, 4.0, 8.0);
+        var t2 = new Triangle(8.0, 4.0, 5.0);
+        Assertions.assertEquals(t1, t2);
+    }
     //Блок тестов на проверку корректности условий создания треугольника в конструкторе
 
     // Тест на проверку отрицательной стороны a
