@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -25,20 +24,6 @@ public class GroupCreationTests {
 
     }
 
-    @AfterEach
-    public void tearDown() {
-        //driver.findElement(By.linkText("Logout")).click();
-        //driver.quit();
-    }
-
-    private boolean isElementPresent(By locator) {
-        try {
-            driver.findElement(locator);
-            return true;
-        } catch (NoSuchElementException exception) {
-            return false;
-        }
-    }
 
     @Test
     public void canCreateGroup() {
@@ -72,5 +57,14 @@ public class GroupCreationTests {
         driver.findElement(By.name("group_footer")).sendKeys("");
         driver.findElement(By.name("submit")).click();
         driver.findElement(By.linkText("group page")).click();
+    }
+
+    private boolean isElementPresent(By locator) {
+        try {
+            driver.findElement(locator);
+            return true;
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
     }
 }
