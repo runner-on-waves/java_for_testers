@@ -23,6 +23,7 @@ public class ContactHelper extends HelperBase {
         submitContactCreation();
         returnToHomePage();
     }
+
     private void returnToHomePage() {
         click(By.linkText("home"));
     }
@@ -33,14 +34,22 @@ public class ContactHelper extends HelperBase {
 
     private void fillContactForm(ContactData contact) {
         type(By.name("firstname"), contact.firstName());
+        type(By.name("middlename"), contact.middleName());
         type(By.name("lastname"), contact.lastName());
         type(By.name("nickname"), contact.nickname());
         type(By.name("company"), contact.company());
         type(By.name("address"), contact.address());
+        type(By.name("home"), contact.homePhone());
         type(By.name("mobile"), contact.mobilePhone());
+        type(By.name("work"), contact.workPhone());
+        type(By.name("fax"), contact.fax());
+        type(By.name("email"), contact.email());
         type(By.name("email2"), contact.email2());
         type(By.name("email3"), contact.email3());
         type(By.name("byear"), contact.year());
+        type(By.name("company"), contact.company());
+        selectMonth(contact);
+
     }
 
     public void openContactPage() {
@@ -81,6 +90,6 @@ public class ContactHelper extends HelperBase {
 
     private void selectGroupContact() {
         click(By.name("new_group"));
-        click(By.xpath("//option[@value =\'62\']"));
+        click(By.xpath("//option[1]"));
     }
 }

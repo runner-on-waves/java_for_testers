@@ -1,5 +1,6 @@
 package manager;
 
+import model.ContactData;
 import org.openqa.selenium.By;
 
 public class HelperBase {
@@ -17,5 +18,8 @@ public class HelperBase {
         click(locator);
         manager.driver.findElement(locator).clear();
         manager.driver.findElement(locator).sendKeys(text);
+    }
+    protected void selectMonth(ContactData contact) {
+        manager.driver.findElement(By.xpath(String.format("//option[contains(.,'%s')]", contact.monthOfBirth()))).click();
     }
 }

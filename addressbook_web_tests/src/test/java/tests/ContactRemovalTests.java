@@ -1,9 +1,10 @@
 package tests;
+
 import model.ContactData;
 
 import org.junit.jupiter.api.Test;
 
-public class ContactRemovalTests extends TestBase{
+public class ContactRemovalTests extends TestBase {
 
     @Test
     public void canRemoveContact() {
@@ -14,7 +15,7 @@ public class ContactRemovalTests extends TestBase{
     }
 
     @Test
-    public void canRemoveAllContacts(){
+    public void canRemoveAllContacts() {
         if (!app.contacts().isContactPresent()) {
             app.contacts().createContact(new ContactData());
         }
