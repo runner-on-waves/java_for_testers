@@ -1,8 +1,6 @@
 package tests;
-
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 //import org.junit.jupiter.params.provider.ValueSource;
@@ -29,21 +27,9 @@ public class GroupCreationTests extends TestBase {
     }
 
     public static List<GroupData> negativeGroupProvider() {
-        var result = new ArrayList<GroupData>(List.of(new GroupData("group name'", "", "")));
+        var result = new ArrayList<>(List.of(new GroupData("group name'", "", "")));
         return result;
     }
-
-
-    /* Пример использования теста с источником данных из строки
-    @ParameterizedTest
-    @ValueSource (strings = {"group name", "group name'"})
-    public void canCreateGroup(String name) {
-        int groupCount = app.groups().getCount();
-        app.groups().createGroup(new GroupData(name, "new header", "new footer"));
-        int newGroupCount = app.groups().getCount();
-        Assertions.assertEquals(groupCount + 1, newGroupCount);
-    }
-*/
 
     @ParameterizedTest
     @MethodSource("groupProvider")
@@ -63,5 +49,14 @@ public class GroupCreationTests extends TestBase {
         Assertions.assertEquals(groupCount, newGroupCount);
     }
 
-
+   /* Пример использования теста с источником данных из строки
+    @ParameterizedTest
+    @ValueSource (strings = {"group name", "group name'"})
+    public void canCreateGroup(String name) {
+        int groupCount = app.groups().getCount();
+        app.groups().createGroup(new GroupData(name, "new header", "new footer"));
+        int newGroupCount = app.groups().getCount();
+        Assertions.assertEquals(groupCount + 1, newGroupCount);
+    }
+*/
 }

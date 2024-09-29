@@ -79,6 +79,8 @@ public record ContactData(String firstName, String middleName, String lastName, 
     public ContactData withMonthOfBirth(String monthOfBirth) {
         return new ContactData(this.firstName, this.middleName, this.lastName, this.nickname, company, this.address, this.homePhone, this.mobilePhone, this.workPhone, this.fax, this.email, this.email2, this.email3, this.birthday,monthOfBirth, year);
     }
-
+    public ContactData withDataOnHomepage(String firstName,String lastName,String address, String mobilePhone, String email) {
+        return new ContactData(firstName, this.middleName, lastName, this.nickname, this.company, address, this.homePhone, mobilePhone, this.workPhone, this.fax, email, this.email2, this.email3, this.birthday,monthOfBirth, year);
+    }
 }
 

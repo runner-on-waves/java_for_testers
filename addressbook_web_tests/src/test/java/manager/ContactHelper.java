@@ -92,4 +92,9 @@ public class ContactHelper extends HelperBase {
         click(By.name("new_group"));
         click(By.xpath("//option[1]"));
     }
+
+    public int getCount() {
+        returnToHomePage();
+        return manager.driver.findElements(By.name("selected[]")).size();
+    }
 }
