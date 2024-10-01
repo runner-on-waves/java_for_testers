@@ -97,7 +97,6 @@ public class ContactHelper extends HelperBase {
     }
 
     public List<ContactData> getList() {
-        //returnToHomePage();
         var contacts = new ArrayList<ContactData>();
         var entries = manager.driver.findElements(By.name("entry"));
         for (var entry : entries) {
@@ -111,4 +110,22 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
+
+    public void modifyContact(ContactData contact, ContactData testData) {
+        returnToHomePage();
+        selectContact(contact);
+        initContactModification(contact);
+        fillContactForm(testData);
+        submitContactModification();
+        returnToHomePage();
+    }
+
+    private void submitContactModification() {
+        click(By.xpath("//input[@name='update']"));
+    }
+
+    private void initContactModification(ContactData contact) {
+        click(By.xpath(String.format("//a[@href='edit.php?id=%s']", contact.id())));
+    }
+
 }
