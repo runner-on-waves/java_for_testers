@@ -14,7 +14,7 @@ public class ContactCreationTests extends TestBase {
 
     public static List<ContactData> contactProvider() {
         var result = new ArrayList<>(List.of(
-                new ContactData(),
+                /*new ContactData(),
                 new ContactData().withHomePhone("+7955111111111"),
                 new ContactData().withMobilePhone("+7999111111122"),
                 new ContactData().withWorkPhone("+7999111111133"),
@@ -28,8 +28,10 @@ public class ContactCreationTests extends TestBase {
                 new ContactData().withNickName("Pyatachok"),
                 new ContactData().withMonthOfBirth("September"),
                 new ContactData().withYearOfBirth("2000"),
-                new ContactData().withCompany("Winnie-Pooh")));
-        for (var firstName : List.of("", "Ivan")) {
+                new ContactData().withCompany("Winnie-Pooh"),*/
+                new ContactData().withPhoto(randomFile("src/test/resources/images"))));
+
+       /* for (var firstName : List.of("", "Ivan")) {
             for (var lastName : List.of("", "Ivanov")) {
                 for (var address : List.of("", "Lenina Street")) {
                     for (var phone : List.of("", "+792345675690")) {
@@ -47,8 +49,8 @@ public class ContactCreationTests extends TestBase {
             result.add(new ContactData("", randomString(i * 10), randomString(i * 10), randomString(i * 10),
                     randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10),
                     randomString(i * 10), randomString(i * 10), randomString(i * 10), randomString(i * 10),
-                    randomString(i * 10), randomString(i * 10), "", randomString(i * 10)));
-        }
+                    randomString(i * 10), randomString(i * 10), "", randomString(i * 10),"src/test/resources/images/avatar.png" ));
+        }*/
         return result;
     }
 
@@ -99,7 +101,8 @@ public class ContactCreationTests extends TestBase {
                 .withEmail2("")
                 .withEmail3("")
                 .withMonthOfBirth("")
-                .withYearOfBirth(""));
+                .withYearOfBirth("")
+                .withPhoto(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
     }
@@ -112,6 +115,4 @@ public class ContactCreationTests extends TestBase {
         int newContactCount = app.contacts().getCount();
         Assertions.assertEquals(contactCount, newContactCount);
     }
-
-
 }

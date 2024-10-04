@@ -19,6 +19,7 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
+
     public void createContactWithGroup(ContactData contact) {
         openContactPage();
         fillContactForm(contact);
@@ -52,6 +53,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("byear"), contact.year());
         type(By.name("company"), contact.company());
         selectMonth(contact);
+        attach(By.name("photo"), contact.photo());
 
     }
 
