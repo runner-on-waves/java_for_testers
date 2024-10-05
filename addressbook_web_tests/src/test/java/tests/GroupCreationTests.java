@@ -20,15 +20,23 @@ import java.util.List;
 public class GroupCreationTests extends TestBase {
 
     public static List<GroupData> groupProvider() throws IOException {
+        //***********1. Создание объектов из файла в формате xml
         var result = new ArrayList<GroupData>();
-        /*for (var name : List.of("", "group name")) {
-            for (var header : List.of("", "group header")) {
-                for (var footer : List.of("", "group footer")) {
-                    result.add(new GroupData().withName( name).withHeader( header).withFooter(footer));
-                }
-            }
-
-        }*/
+        var mapper = new XmlMapper();
+        var value = mapper.readValue(new File("groups.xml"), new TypeReference<List<GroupData>>() {
+        });
+        result.addAll(value);
+        return result;
+        //**************2. Создание комбинаций значений для объектов ContactData в цикле
+//        for (var name : List.of("", "group name")) {
+//            for (var header : List.of("", "group header")) {
+//                for (var footer : List.of("", "group footer")) {
+//                    result.add(new GroupData().withName( name).withHeader( header).withFooter(footer));
+//                }
+//            }
+//
+//        }
+        // **************3.варианты с  json
         // вариант с постройчным чтением для больших файлов, выборочные данные для сохранения
 //        var json = "";
 //        try (var reader = new FileReader("groups.json");
@@ -39,13 +47,10 @@ public class GroupCreationTests extends TestBase {
 //                line = breader.readLine();
 //            }
 //        }
-        //var json = Files.readString(Paths.get("groups.json")); // чтение файла целиком
+        // чтение файла целиком
+        //var json = Files.readString(Paths.get("groups.json"));
         //ObjectMapper mapper = new ObjectMapper();
-        var mapper = new XmlMapper();
-        var value = mapper.readValue(new File("groups.xml"), new TypeReference<List<GroupData>>() {
-        });
-        result.addAll(value);
-        return result;
+
     }
 
     public static List<GroupData> negativeGroupProvider() {
