@@ -2,14 +2,15 @@ package tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import common.CommonFunctions;
+//import common.CommonFunctions;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 //import org.junit.jupiter.params.provider.ValueSource;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,8 +28,19 @@ public class GroupCreationTests extends TestBase {
             }
 
         }*/
+        // вариант с постройчным чтением для больших файлов, выборочные данные для сохранения
+        var json = "";
+        try (var reader = new FileReader("groups.json");
+             var breader = new BufferedReader(reader)) {
+            var line = breader.readLine();
+            while (line != null) {
+                json = json + line;
+                line = breader.readLine();
+            }
+        }
+        //var json = Files.readString(Paths.get("groups.json")); // чтение файла целиком
         ObjectMapper mapper = new ObjectMapper();
-        var value = mapper.readValue(new File("groups.json"), new TypeReference<List<GroupData>>() {
+        var value = mapper.readValue(json, new TypeReference<List<GroupData>>() {
         });
         result.addAll(value);
         return result;
