@@ -22,5 +22,12 @@ public record GroupData(String id, String name, String header, String footer) {
         return new GroupData(this.id, this.name, this.header, footer);
     }
 
+    //Геттеры для свойств, которые есть в списке групп на ui
+    public String getId() {
+        return this.id;
+    }
 
+    public String getName() {
+        return this.name;
+    }
 }
