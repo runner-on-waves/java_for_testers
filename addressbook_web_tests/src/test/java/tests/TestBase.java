@@ -1,15 +1,15 @@
 package tests;
 
 import manager.ApplicationManager;
+import model.ContactData;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Properties;
-import java.util.Random;
+import java.util.*;
 
 public class TestBase {
     protected static ApplicationManager app;
@@ -32,4 +32,31 @@ public class TestBase {
         return Paths.get(dir, fileNames[index]).toString();
     }
 
+
+    @AfterEach
+    void  checkDatabaseConsistency(){
+        app.jdbc().checkConsistency();
+    }
+    public boolean compareGroupContactLists(List<ContactData> hbmContacts, List<ContactData> uiContacts) {
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        hbmContacts.sort(compareById);
+        var hbmForComparison = new ArrayList<ContactData>();
+        for (var contact : hbmContacts) {
+            hbmForComparison.add(new ContactData()
+                    .withId(contact.id()).
+                    withFirstName(contact.firstName())
+                    .withLastName(contact.lastName())
+                    .withEmail(contact.email())
+                    .withCompany(contact.company())
+                    .withAddress(contact.address())
+                    .withMobilePhone(contact.mobilePhone())
+                    .withNickName(contact.nickname())
+                    .withPhoto(contact.photo())
+            );
+        }
+        uiContacts.sort(compareById);
+        return uiContacts.equals(hbmContacts);
+    }
 }

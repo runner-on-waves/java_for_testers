@@ -1,8 +1,8 @@
 package manager;
-
 import model.ContactData;
+import model.GroupData;
 import org.openqa.selenium.By;
-
+import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +20,10 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void createContactWithGroup(ContactData contact) {
+    public void createContact(ContactData contact, GroupData group) {
         openContactPage();
         fillContactForm(contact);
-        selectGroupContact();
+        selectGroup(group);
         submitContactCreation();
         returnToHomePage();
     }
@@ -53,8 +53,9 @@ public class ContactHelper extends HelperBase {
         type(By.name("byear"), contact.year());
         type(By.name("company"), contact.company());
         selectMonth(contact);
-        attach(By.name("photo"), contact.photo());
-
+        if ("".equals(contact.photo())) {
+            attach(By.name("photo"), "src/test/resources/images/avatar.png");
+        } else attach(By.name("photo"), contact.photo());
     }
 
     public void openContactPage() {
@@ -68,6 +69,19 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
+        returnToHomePage();
+        selectGroupForRemoval(group);
+        selectContact(contact);
+        removeSelectedContactFromGroup();
+        returnToHomePage();
+    }
+
+    private void removeSelectedContactFromGroup() {
+        click(By.xpath("//input[@name='remove']"));
+    }
+
+    //
     public void removeAllContacts() {
         returnToHomePage();
         selectAllContacts();
@@ -88,9 +102,16 @@ public class ContactHelper extends HelperBase {
         click(By.cssSelector(String.format("input[value = '%s']", contact.id())));
     }
 
-    private void selectGroupContact() {
-        click(By.name("new_group"));
-        click(By.xpath("//option[1]"));
+    private void selectGroup(GroupData group) {
+        new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
+    }
+
+    private void selectGroupWithContacts(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+    }
+
+    private void selectGroupForRemoval(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
     }
 
     public int getCount() {
@@ -105,9 +126,10 @@ public class ContactHelper extends HelperBase {
             var cells = entry.findElements(By.tagName("td"));
             var lastName = cells.get(1).getText();
             var firstName = cells.get(2).getText();
+            var address = cells.get(3).getText();
             var checkbox = entry.findElement(By.name("selected[]"));
             var id = checkbox.getAttribute("value");
-            contacts.add(new ContactData().withId(id).withLastName(lastName).withFirstName(firstName));
+            contacts.add(new ContactData().withId(id).withLastName(lastName).withFirstName(firstName).withAddress(address));
 
         }
         return contacts;
@@ -128,6 +150,18 @@ public class ContactHelper extends HelperBase {
 
     private void initContactModification(ContactData contact) {
         click(By.xpath(String.format("//a[@href='edit.php?id=%s']", contact.id())));
+    }
+
+    public void addContactToGroup(GroupData group, ContactData contact) {
+        selectContact(contact);
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+        click(By.xpath("//input[@name='add']"));
+    }
+
+    public List<ContactData> getGroupContacts(GroupData group) {
+        returnToHomePage();
+        selectGroupWithContacts(group);
+        return getList();
     }
 
 }

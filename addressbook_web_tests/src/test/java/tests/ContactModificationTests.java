@@ -1,5 +1,5 @@
 package tests;
-
+import common.CommonFunctions;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,15 +10,19 @@ import java.util.Random;
 public class ContactModificationTests extends TestBase{
     @Test
     void canModifyContact(){
-        if (app.contacts().getCount() == 0) {
-            app.contacts().createContact(new ContactData());
+        if (app.hbm().getContactCount() == 0) {
+            app.contacts().createContact(new ContactData()
+                    .withFirstName(CommonFunctions.randomString(10))
+                    .withLastName(CommonFunctions.randomString(20))
+                    .withAddress(CommonFunctions.randomString(30))
+                    .withPhoto(randomFile("src/test/resources/images")));
         }
-        var oldContacts = app.contacts().getList();
+        var oldContacts = app.hbm().getContactList();
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
         var testData = new ContactData().withLastName("modified LastName");
         app.contacts().modifyContact(oldContacts.get(index), testData);
-        var newContacts = app.contacts().getList();
+        var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.set(index, testData.withId(oldContacts.get(index).id()));
         Comparator<ContactData> compareById = (o1, o2) -> {
