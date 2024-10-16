@@ -153,9 +153,11 @@ public class ContactHelper extends HelperBase {
     }
 
     public void addContactToGroup(GroupData group, ContactData contact) {
+        returnToHomePage();
         selectContact(contact);
         new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
         click(By.xpath("//input[@name='add']"));
+        returnToHomePage();
     }
 
     public List<ContactData> getGroupContacts(GroupData group) {
