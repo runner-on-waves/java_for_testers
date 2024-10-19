@@ -50,12 +50,9 @@ public class ContactModificationTests extends TestBase{
                     .withAddress(CommonFunctions.randomString(30))
                     .withPhoto(randomFile("src/test/resources/images"));
             app.contacts().createContact(contact);
-            contact = app.hbm().getContactList().get(0);
-            app.contacts().addContactToGroup(group,contact);
-        } else {
-            contact = app.hbm().getContactList().get(0);
-            app.contacts().addContactToGroup(group,contact);
         }
+            contact = app.hbm().getContactList().get(0);
+            app.contacts().addContactToGroup(group,contact);
         var newRelated =  app.hbm().getContactsInGroup(group);
         var uiRelated = app.contacts().getGroupContacts(group);
         boolean result = compareGroupContactLists(newRelated,uiRelated);
