@@ -1,7 +1,5 @@
 package ru.stqa.geometry.figures;
 
-import java.util.Objects;
-
 public record Square(double side) {
     public Square {
         if (side < 0) {
@@ -13,6 +11,11 @@ public record Square(double side) {
     public static void printSquareArea(Square s) {
         //System.out.println("Площадь квадрата со стороной " + side + " = " + squareArea(side));
         String text = String.format("Площадь квадрата со стороной %f = %f", s.side, s.area());
+        System.out.println(text);
+    }
+
+    public static void printSquarePerimeter(Square s) {
+        String text = String.format("Периметр квадрата со стороной %f = %f", s.side, s.perimeter());
         System.out.println(text);
     }
 
