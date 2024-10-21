@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CollectionTests {
 
@@ -31,5 +33,13 @@ public class CollectionTests {
         Assertions.assertEquals("a", list.get(0));
         list.set(0, "d"); //изменение значения элемента списка
         Assertions.assertEquals("d", list.get(0));
+    }
+
+    @Test
+    void setTests() {
+        var set = new HashSet<>(List.of("a", "b", "c", "a"));
+        //set.iterator().next();
+        var element = set.stream().findAny().get();
+        Assertions.assertEquals(3, set.size());
     }
 }
