@@ -16,8 +16,8 @@ public class ContactRecord {
     public String middlename = "";
     public String nickname;
     public String company;
-    public String home = "";
-    public String work = "";
+    public String home;
+    public String work;
     public int domain_id = 0;
     public String email;
     public String email2 = "";
@@ -26,18 +26,23 @@ public class ContactRecord {
     public String homepage = "";
     public String mobile;
     public String title = "";
+    @Column(name = "phone2")
+    public String secondary;
 
-    public ContactRecord(){
+    public ContactRecord() {
 
     }
 
-    public ContactRecord(int id, String firstname, String lastname, String address, String nickname, String mobile, String email, String company){
+    public ContactRecord(int id, String firstname, String lastname, String address, String nickname, String mobile, String email, String company, String work, String home, String secondary) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
         this.nickname = nickname;
         this.mobile = mobile;
+        this.work = work;
+        this.home = home;
+        this.secondary = secondary;
         this.email = email;
         this.company = company;
     }
