@@ -20,8 +20,8 @@ public class ContactRecord {
     public String work;
     public int domain_id = 0;
     public String email;
-    public String email2 = "";
-    public String email3 = "";
+    public String email2;
+    public String email3;
     public String fax = "";
     public String homepage = "";
     public String mobile;
@@ -33,7 +33,7 @@ public class ContactRecord {
 
     }
 
-    public ContactRecord(int id, String firstname, String lastname, String address, String nickname, String mobile, String email, String company, String work, String home, String secondary) {
+    public ContactRecord(int id, String firstname, String lastname, String address, String nickname, String mobile, String email, String company, String work, String home, String secondary, String email2, String email3) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -45,6 +45,8 @@ public class ContactRecord {
         this.secondary = secondary;
         this.email = email;
         this.company = company;
+        this.email2 = email2;
+        this.email3 = email3;
     }
 }
 
