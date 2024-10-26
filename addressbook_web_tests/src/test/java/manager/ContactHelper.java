@@ -131,7 +131,7 @@ public class ContactHelper extends HelperBase {
             var lastName = cells.get(1).getText();
             var firstName = cells.get(2).getText();
             var address = cells.get(3).getText();
-            var checkbox = entry.findElement(By.name("selected[]"));
+            var checkbox = cells.get(0).findElement(By.name("selected[]"));
             var id = checkbox.getAttribute("value");
             contacts.add(new ContactData().withId(id).withLastName(lastName).withFirstName(firstName).withAddress(address));
 
@@ -140,13 +140,34 @@ public class ContactHelper extends HelperBase {
     }
 
     public void modifyContact(ContactData contact, ContactData testData) {
-        returnToHomePage();
-        selectContact(contact);
-        initContactModification(contact);
+        openModificationPage(contact);
         fillContactForm(testData);
         submitContactModification();
         returnToHomePage();
     }
+
+    public void openModificationPage(ContactData contact) {
+        returnToHomePage();
+        selectContact(contact);
+        initContactModification(contact);
+    }
+
+
+    public  HashMap<String, String> getContactModificationData () {
+        var modificationData = new HashMap<String, String>();
+        var phones = manager.driver.findElement(By.name("home")).getAttribute("value")
+                + manager.driver.findElement(By.name("mobile")).getAttribute("value")
+                + manager.driver.findElement(By.name("work")).getAttribute("value");
+                var address= manager.driver.findElement(By.name("address")).getText();
+                var emails = manager.driver.findElement(By.name("email")).getAttribute("value")
+                        + manager.driver.findElement(By.name("email2")).getAttribute("value")
+                        + manager.driver.findElement(By.name("email3")).getAttribute("value");
+            modificationData.put("emails", emails);
+            modificationData.put("address",address);
+            modificationData.put("phones", phones);
+        return modificationData;
+    }
+
 
     private void submitContactModification() {
         click(By.xpath("//input[@name='update']"));

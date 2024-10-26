@@ -27,7 +27,7 @@ public class ContactRecord {
     public String mobile;
     public String title = "";
     @Column(name = "phone2")
-    public String secondary;
+    public String secondary = "";
 
     public ContactRecord() {
 
@@ -42,7 +42,6 @@ public class ContactRecord {
         this.mobile = mobile;
         this.work = work;
         this.home = home;
-        this.secondary = secondary;
         this.email = email;
         this.company = company;
         this.email2 = email2;

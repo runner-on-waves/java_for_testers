@@ -5,6 +5,7 @@ import model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -60,5 +61,32 @@ public class ContactInfoTests extends TestBase {
         Assertions.assertEquals(modifiedAddress, address);
         Assertions.assertEquals(modifiedEmails, emails);
         Assertions.assertEquals(modifiedPhones, phones);
+    }
+
+    @Test
+    void compareRandomContactDataWithModificationData() {
+        if (app.hbm().getContactCount() == 0) {
+            app.contacts().createContact(new ContactData()
+                    .withFirstName(CommonFunctions.randomString(10))
+                    .withLastName(CommonFunctions.randomString(20))
+                    .withAddress(CommonFunctions.randomString(30))
+                    .withPhoto(randomFile("src/test/resources/images")));
+        }
+        var random = new Random().nextInt(app.contacts().getList().size());
+        var randomId = app.contacts().getList().get(random).id();
+        var randomContact = app.contacts().getList().get(random);
+        var address = app.contacts().getAddress().get(randomId);
+        address = address.replaceAll("\n","");
+        var emails =  app.contacts().getEmails().get(randomId);
+        emails = emails.replaceAll("\n","");
+        var phones = app.contacts().getPhones().get(randomId);
+        phones = phones.replaceAll("\n","");
+        app.contacts().openModificationPage(randomContact);
+        var modifiedAddress = app.contacts().getContactModificationData().get("address");
+        var modifiedEmails = app.contacts().getContactModificationData().get("emails");
+        var modifiedPhones = app.contacts().getContactModificationData().get("phones");
+        Assertions.assertEquals(modifiedAddress, address);
+        Assertions.assertEquals(modifiedPhones, phones);
+        Assertions.assertEquals(modifiedEmails, emails);
     }
 }
