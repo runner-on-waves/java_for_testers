@@ -1,6 +1,5 @@
 package ru.stqa.mantis.model;
 
-import jakarta.mail.Message;
 
 public record MailMessage(String from, String content) {
     public MailMessage(){

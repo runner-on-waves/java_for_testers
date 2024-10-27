@@ -4,8 +4,6 @@ package ru.stqa.mantis.manager;
 import org.openqa.selenium.io.CircularOutputStream;
 import org.openqa.selenium.os.CommandLine;
 
-import java.io.OutputStream;
-
 public class JamesCliHelper extends HelperBase {
     public JamesCliHelper(ApplicationManager manager) {
         super(manager);
