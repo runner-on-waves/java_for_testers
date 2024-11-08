@@ -16,6 +16,7 @@ public class RestApiHelper extends HelperBase {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         ApiKeyAuth Authorization = (ApiKeyAuth) defaultClient.getAuthentication("Authorization");
         Authorization.setApiKey(manager.property("apiKey"));
+        defaultClient.setBasePath(manager.property("api.basePath"));
     }
 
 

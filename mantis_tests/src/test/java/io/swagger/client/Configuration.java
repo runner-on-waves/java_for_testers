@@ -34,6 +34,8 @@ public class Configuration {
      * @param apiClient API client
      */
     public static void setDefaultApiClient(ApiClient apiClient) {
+
         defaultApiClient = apiClient;
     }
+
 }
